@@ -1,0 +1,9 @@
+image:
+  file: .gitpod.Dockerfile
+
+tasks:
+  - init: dep ensure
+
+vscode:
+  extensions:
+    - premparihar.gotestexplorer@0.1.10:jvUM8akrQ67vQxfjaxCgCg==
