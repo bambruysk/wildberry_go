@@ -2,6 +2,9 @@ package main
 
 import (
 	_ "encoding/json"
+	"errors"
+	"io/ioutil"
+	"strings"
 
 	"fmt"
 	"io"
@@ -18,12 +21,17 @@ func main() {
 	if err != nil {
 		log.Println("Error in request creation")
 	}
-	pageText, err := io.ReadAll(page)
-    if err != nil {
-		print(err)
 
-    }
-	fmt.Print(string(pageText))
+	fil, err := io.ReadAll(page)
+
+	err = ioutil.WriteFile("/tmp/dat1", fil, 0644)
+
+	ssrJSON,err :=  ExtractSsrModel(page)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Print(string(ssrJSON))
 
 }
 
@@ -45,15 +53,6 @@ func MakeRequest(URL string) (io.ReadCloser, error)  {
 		return nil, err
 	}
 
-	//var result map[string]interface{}
-	//json.NewDecoder(resp.Body).Decode(&result)
-	//log.Println(&resp.Body)
-    body, err := io.ReadAll(resp.Body)
-    if err != nil {
-		print(err)
-		return nil, err
-    }
-	fmt.Print(string(body))
 	return  resp.Body, nil
 
 }
@@ -63,4 +62,45 @@ func CreateWBUrl (article string) string {
 }
 
 
+func ExtractSsrModel ( body io.ReadCloser) (string, error) {
+	bodyB, err := io.ReadAll (body)
+	defer body.Close()
+	if err != nil {
+		return "", err
+    }
+	bodyT := string(bodyB)
 
+	start := strings.Index(bodyT, "ssrModel")
+	if start < 0 {
+		return "" , errors.New("ssrModel not found")
+	}
+	text := bodyT[start:]
+	parentFound := false
+	for i,c := range text {
+		if c == '{' {
+			start = i
+			parentFound =  true
+			break
+		}
+	}
+	if parentFound == false {
+		return "", errors.New("no { after ssrModel tag")
+	}
+
+	parenthesisCount :=  1
+	text = bodyT[start:]
+	var end int
+	for i,c := range text {
+		switch c {
+		case '{': parenthesisCount++
+		case '}': parenthesisCount--
+		}
+		if parenthesisCount == 0 {
+			end = i
+			break
+		}
+	}
+	log.Println(bodyT[start:end])
+	return bodyT[start:end], nil
+
+}
