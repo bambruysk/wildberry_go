@@ -1,8 +1,14 @@
 image:
   file: .gitpod.Dockerfile
 
+checkoutLocation: "go/src/github.com/bambruysk/wildberry_go"
+workspaceLocation: "go/src/github.com/bambruysk/wildberry_go"
+
 tasks:
-  - init: dep ensure
+  - init: dep ensure >
+      go build -o app
+    command: >
+      ./app
 
 vscode:
   extensions:
