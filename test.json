@@ -1,0 +1,917 @@
+{
+    "suppliersInfo": {
+        "11119714": {
+            "cod1S": 11119714,
+            "supplierName": "ВАЙЛДБЕРРИЗ ООО",
+            "ogrn": "1067746062449"
+        }
+    },
+    "addToBasketEnable": true,
+    "addToPonedEnable": true,
+    "addToWaitingListEnable": false,
+    "addToCreditEnable": false,
+    "addToSellerEnable": false,
+    "addToPreorderEnable": false,
+    "canTakeOutInsurance": false,
+    "deliveryInfoEnable": true,
+    "priceForProduct": {
+        "priceWithSale": 4990,
+        "price": 4990,
+        "sale": 0,
+        "priceDif": false
+    },
+    "rqCod1S": 11119714,
+    "productCard": {
+        "link": 8392026,
+        "star": 5,
+        "brandName": "ИНТЕРСКОЛ",
+        "brandId": 19084,
+        "brandDirectionId": 0,
+        "brandDirectionPicsCount": 0,
+        "description": "Шуруповерт ДА-12ЭР-02 (534.0.2.02). Технология Li-ion - низкий саморазряд, отсутствие эффекта памяти, высокая энергоемкость. Отличный баланс между емкостью аккумулятора и мощностью двигателя. Муфта ограничения усилия с 18+1. Двухскоростной редуктор с металлическими шестернями - высокая эффективность как сверления, так и закручивания крепежа. Контроллер с функцией отключения двигателя при перегрузке. Компактный, с укороченной базой, с автолоком шпинделя, оснащен бесключевым патроном на 10мм. LED-подсветка рабочей зоны. Компактный и надежный литой кейс. В комплекте биты 25 мм PZ1\\PZ2\\PH1\\PH2\\5\\6 (6 шт) и сверла: 1.5; 2; 3; 4; 5; 6 мм. (6 шт).",
+        "goodsName": "Дрель-шуруповерт аккумуляторная ДА-12ЭР-02, 30Нм, 12В, 2х2.0Ач, з/у, кейс, набор оснастки 12шт",
+        "nomenclatures": {
+            "11119714": {
+                "cod1S": 11119714,
+                "artikul": "11119714",
+                "sale": 0,
+                "colorName": "серый, черный",
+                "sizes": [
+                    {
+                        "characteristicId": 35462098,
+                        "price": 4990,
+                        "priceWithSale": 4990,
+                        "quantity": 524,
+                        "sizeName": "0",
+                        "dimensions": [],
+                        "storeIds": [
+                            507,
+                            117986
+                        ],
+                        "hasPreorder": false
+                    }
+                ],
+                "picsCount": 1,
+                "has3DView": false,
+                "hasVideo": false,
+                "kit": [],
+                "relatedGoods": [],
+                "minOrderAmount": 1,
+                "ordersCount": 1627,
+                "regionIds": [
+                    1
+                ],
+                "disableForRegion": false,
+                "qualityRate": -1,
+                "isDataLoaded": true,
+                "soldOut": false
+            }
+        },
+        "addedOptions": [
+            {
+                "property": "Модель",
+                "subProperty": "ДА-12ЭР-02 534.0.2.02",
+                "categoryId": 7,
+                "priority": 0
+            },
+            {
+                "property": "Питание",
+                "subProperty": "от аккумулятора",
+                "categoryId": 5,
+                "priority": 0
+            },
+            {
+                "property": "Гарантийный срок",
+                "subProperty": "2года",
+                "categoryId": 7,
+                "priority": 0
+            },
+            {
+                "property": "Тип аккумулятора",
+                "subProperty": "Li-Ion",
+                "categoryId": 5,
+                "priority": 0
+            },
+            {
+                "property": "Количество скоростей работы",
+                "subProperty": "2",
+                "categoryId": 9,
+                "priority": 0
+            },
+            {
+                "property": "Наличие удара",
+                "subProperty": "без удара",
+                "categoryId": 0,
+                "priority": 0
+            },
+            {
+                "property": "Тип патрона",
+                "subProperty": "быстрозажимной",
+                "categoryId": 0,
+                "priority": 0
+            },
+            {
+                "property": "Максимальное число оборотов",
+                "subProperty": "1400 об/мин",
+                "categoryId": 0,
+                "priority": 0
+            },
+            {
+                "property": "Максимальный крутящий момент",
+                "subProperty": "30 Н*м",
+                "categoryId": 0,
+                "priority": 0
+            },
+            {
+                "property": "Минимальный диаметр основного патрона",
+                "subProperty": "0.8 мм",
+                "categoryId": 0,
+                "priority": 0
+            },
+            {
+                "property": "Максимальный диаметр основного патрона",
+                "subProperty": "10 мм",
+                "categoryId": 0,
+                "priority": 0
+            },
+            {
+                "property": "Максимальный диаметр сверления стали",
+                "subProperty": "10 мм",
+                "categoryId": 0,
+                "priority": 0
+            },
+            {
+                "property": "Максимальный диаметр сверления дерева",
+                "subProperty": "20 мм",
+                "categoryId": 0,
+                "priority": 0
+            },
+            {
+                "property": "Вес с упаковкой (кг)",
+                "subProperty": "2 кг",
+                "categoryId": 0,
+                "priority": 0
+            },
+            {
+                "property": "Вес без упаковки (кг)",
+                "subProperty": "1.14 кг",
+                "categoryId": 0,
+                "priority": 0
+            },
+            {
+                "property": "Ширина упаковки",
+                "subProperty": "24 см",
+                "categoryId": 0,
+                "priority": 0
+            },
+            {
+                "property": "Высота упаковки",
+                "subProperty": "27 см",
+                "categoryId": 0,
+                "priority": 0
+            },
+            {
+                "property": "Глубина упаковки",
+                "subProperty": "7.5 см",
+                "categoryId": 0,
+                "priority": 0
+            },
+            {
+                "property": "Емкость аккумулятора",
+                "subProperty": "2000 мА*ч",
+                "categoryId": 5,
+                "priority": 0
+            },
+            {
+                "property": "Напряжение аккумулятора",
+                "subProperty": "12 В",
+                "categoryId": 5,
+                "priority": 0
+            },
+            {
+                "property": "Доп. опции шуруповерта",
+                "subProperty": "блокировка шпинделя; встроенный фонарик; смена направления вращения",
+                "categoryId": 0,
+                "priority": 0
+            },
+            {
+                "property": "Комплектация",
+                "subProperty": "кейс; зарядное устройство; аккумулятор - 2 шт.; шуруповерт; документация; бита - 6 шт.; сверло – 6 шт.",
+                "categoryId": 0,
+                "priority": 0
+            },
+            {
+                "property": "Страна производитель",
+                "subProperty": "Китай",
+                "categoryId": 0,
+                "priority": 0
+            }
+        ],
+        "commentsCount": 111,
+        "sizeTypeId": 3256,
+        "technologies": [],
+        "nonRefundable": true,
+        "brandCod": 9084,
+        "subjectId": 2197,
+        "subjectRootId": 1162,
+        "brandRating": 0,
+        "sizeTableLastChangedDate": "\/Date(-62135596800000-0000)\/",
+        "regionIds": [
+            1
+        ],
+        "kindName": "",
+        "kindId": 0,
+        "hasCertificate": false,
+        "groupedAddedOptions": [
+            {
+                "categoryId": 7,
+                "categoryName": "Общие характеристики",
+                "categoryPriority": 0,
+                "addedOptions": [
+                    {
+                        "property": "Модель",
+                        "subProperty": "ДА-12ЭР-02 534.0.2.02",
+                        "categoryId": 7,
+                        "priority": 0
+                    },
+                    {
+                        "property": "Гарантийный срок",
+                        "subProperty": "2года",
+                        "categoryId": 7,
+                        "priority": 0
+                    }
+                ]
+            },
+            {
+                "categoryId": 5,
+                "categoryName": "Питание",
+                "categoryPriority": 0,
+                "addedOptions": [
+                    {
+                        "property": "Питание",
+                        "subProperty": "от аккумулятора",
+                        "categoryId": 5,
+                        "priority": 0
+                    },
+                    {
+                        "property": "Тип аккумулятора",
+                        "subProperty": "Li-Ion",
+                        "categoryId": 5,
+                        "priority": 0
+                    },
+                    {
+                        "property": "Емкость аккумулятора",
+                        "subProperty": "2000 мА*ч",
+                        "categoryId": 5,
+                        "priority": 0
+                    },
+                    {
+                        "property": "Напряжение аккумулятора",
+                        "subProperty": "12 В",
+                        "categoryId": 5,
+                        "priority": 0
+                    }
+                ]
+            },
+            {
+                "categoryId": 9,
+                "categoryName": "Технические особенности",
+                "categoryPriority": 0,
+                "addedOptions": [
+                    {
+                        "property": "Количество скоростей работы",
+                        "subProperty": "2",
+                        "categoryId": 9,
+                        "priority": 0
+                    }
+                ]
+            },
+            {
+                "categoryId": 0,
+                "categoryName": "Дополнительная информация",
+                "categoryPriority": -1,
+                "addedOptions": [
+                    {
+                        "property": "Наличие удара",
+                        "subProperty": "без удара",
+                        "categoryId": 0,
+                        "priority": 0
+                    },
+                    {
+                        "property": "Тип патрона",
+                        "subProperty": "быстрозажимной",
+                        "categoryId": 0,
+                        "priority": 0
+                    },
+                    {
+                        "property": "Максимальное число оборотов",
+                        "subProperty": "1400 об/мин",
+                        "categoryId": 0,
+                        "priority": 0
+                    },
+                    {
+                        "property": "Максимальный крутящий момент",
+                        "subProperty": "30 Н*м",
+                        "categoryId": 0,
+                        "priority": 0
+                    },
+                    {
+                        "property": "Минимальный диаметр основного патрона",
+                        "subProperty": "0.8 мм",
+                        "categoryId": 0,
+                        "priority": 0
+                    },
+                    {
+                        "property": "Максимальный диаметр основного патрона",
+                        "subProperty": "10 мм",
+                        "categoryId": 0,
+                        "priority": 0
+                    },
+                    {
+                        "property": "Максимальный диаметр сверления стали",
+                        "subProperty": "10 мм",
+                        "categoryId": 0,
+                        "priority": 0
+                    },
+                    {
+                        "property": "Максимальный диаметр сверления дерева",
+                        "subProperty": "20 мм",
+                        "categoryId": 0,
+                        "priority": 0
+                    },
+                    {
+                        "property": "Вес с упаковкой (кг)",
+                        "subProperty": "2 кг",
+                        "categoryId": 0,
+                        "priority": 0
+                    },
+                    {
+                        "property": "Вес без упаковки (кг)",
+                        "subProperty": "1.14 кг",
+                        "categoryId": 0,
+                        "priority": 0
+                    },
+                    {
+                        "property": "Ширина упаковки",
+                        "subProperty": "24 см",
+                        "categoryId": 0,
+                        "priority": 0
+                    },
+                    {
+                        "property": "Высота упаковки",
+                        "subProperty": "27 см",
+                        "categoryId": 0,
+                        "priority": 0
+                    },
+                    {
+                        "property": "Глубина упаковки",
+                        "subProperty": "7.5 см",
+                        "categoryId": 0,
+                        "priority": 0
+                    },
+                    {
+                        "property": "Доп. опции шуруповерта",
+                        "subProperty": "блокировка шпинделя; встроенный фонарик; смена направления вращения",
+                        "categoryId": 0,
+                        "priority": 0
+                    },
+                    {
+                        "property": "Комплектация",
+                        "subProperty": "кейс; зарядное устройство; аккумулятор - 2 шт.; шуруповерт; документация; бита - 6 шт.; сверло – 6 шт.",
+                        "categoryId": 0,
+                        "priority": 0
+                    },
+                    {
+                        "property": "Страна производитель",
+                        "subProperty": "Китай",
+                        "categoryId": 0,
+                        "priority": 0
+                    }
+                ]
+            }
+        ],
+        "kit": "кейс, зарядное устройство, аккумулятор - 2 шт., шуруповерт, документация, бита - 6 шт., сверло – 6 шт.",
+        "isDigital": false,
+        "rawProduct": {
+            "mark": 5,
+            "commentsCount": 111,
+            "isNew": false,
+            "goodsName": "Дрель-шуруповерт аккумуляторная ДА-12ЭР-02, 30Нм, 12В, 2х2.0Ач, з/у, кейс, набор оснастки 12шт",
+            "brandName": "ИНТЕРСКОЛ",
+            "link": 8392026,
+            "sizeTypeId": 3256,
+            "regionIds": [
+                1
+            ],
+            "colors": [
+                11119714
+            ],
+            "oversized": false,
+            "showSalePanel": false,
+            "brandId": 19084,
+            "prepayOnly": false,
+            "adult": false,
+            "isCargo": false,
+            "supplierName": "ВАЙЛДБЕРРИЗ ООО",
+            "orderQnt": 1627,
+            "countryId": 643,
+            "factoryId": 156,
+            "kit": "кейс, зарядное устройство, аккумулятор - 2 шт., шуруповерт, документация, бита - 6 шт., сверло – 6 шт.",
+            "hasBrandCertificate": false,
+            "ao": [
+                {
+                    "aoId": 5023,
+                    "extId": 218340,
+                    "factor": 0
+                },
+                {
+                    "aoId": 5556,
+                    "extId": 22488,
+                    "factor": 0
+                },
+                {
+                    "aoId": 9623,
+                    "extId": 17796,
+                    "factor": 0
+                },
+                {
+                    "aoId": 11455,
+                    "extId": 21059,
+                    "factor": 0
+                },
+                {
+                    "aoId": 12791,
+                    "extId": 21054,
+                    "factor": 0
+                },
+                {
+                    "aoId": 12793,
+                    "extId": 21111,
+                    "factor": 0
+                },
+                {
+                    "aoId": 12800,
+                    "extId": 21046,
+                    "factor": 0
+                },
+                {
+                    "aoId": 61740,
+                    "extId": 68773,
+                    "factor": 0
+                },
+                {
+                    "aoId": 63694,
+                    "val": 1400,
+                    "siId": 38,
+                    "factor": 0
+                },
+                {
+                    "aoId": 63697,
+                    "val": 30,
+                    "siId": 84,
+                    "factor": 0
+                },
+                {
+                    "aoId": 63698,
+                    "val": 8,
+                    "siId": 18,
+                    "factor": 1
+                },
+                {
+                    "aoId": 63699,
+                    "val": 10,
+                    "siId": 18,
+                    "factor": 0
+                },
+                {
+                    "aoId": 72443,
+                    "extId": 78141,
+                    "factor": 0
+                },
+                {
+                    "aoId": 88903,
+                    "val": 10,
+                    "siId": 18,
+                    "factor": 0
+                },
+                {
+                    "aoId": 88905,
+                    "val": 20,
+                    "siId": 18,
+                    "factor": 0
+                },
+                {
+                    "aoId": 88953,
+                    "val": 200,
+                    "siId": 21,
+                    "factor": 0
+                },
+                {
+                    "aoId": 89064,
+                    "val": 11400,
+                    "siId": 21,
+                    "factor": 2
+                },
+                {
+                    "aoId": 90745,
+                    "val": 2400,
+                    "siId": 1,
+                    "factor": 0
+                },
+                {
+                    "aoId": 90846,
+                    "val": 2700,
+                    "siId": 1,
+                    "factor": 0
+                },
+                {
+                    "aoId": 90849,
+                    "val": 7500,
+                    "siId": 1,
+                    "factor": 1
+                },
+                {
+                    "aoId": 90878,
+                    "extId": 139368,
+                    "factor": 0
+                },
+                {
+                    "aoId": 147615,
+                    "val": 12,
+                    "siId": 27,
+                    "factor": 0
+                },
+                {
+                    "aoId": 147652,
+                    "extId": 147653,
+                    "factor": 0
+                },
+                {
+                    "aoId": 147652,
+                    "extId": 147654,
+                    "factor": 0
+                },
+                {
+                    "aoId": 147652,
+                    "extId": 181700,
+                    "factor": 0
+                }
+            ],
+            "complectIds": [
+                712,
+                769,
+                2423,
+                2776,
+                3850,
+                7527,
+                7545
+            ],
+            "descriptionId": 3817357,
+            "alt": "Дрель-шуруповерт аккумуляторная ДА-12ЭР-02, 30Нм, 12В, 2х2.0Ач, з/у, кейс, набор оснастки 12шт ИНТЕРСКОЛ",
+            "cod1S": 11119714,
+            "sale": 0,
+            "colorName": "серый, черный",
+            "video": false,
+            "has3DView": false,
+            "digitalGood": false,
+            "allowSales": true,
+            "allowCoupon": true,
+            "promos": [
+                66080,
+                66925,
+                76394,
+                79972,
+                84211,
+                88495,
+                90172,
+                90821,
+                92987,
+                93897,
+                93900,
+                96692,
+                98152,
+                98660,
+                100828,
+                102157,
+                103394,
+                103824,
+                105640
+            ],
+            "subjectId": 2197,
+            "priceByChrt": {},
+            "noReturn": true,
+            "stores": [
+                507,
+                117986
+            ],
+            "color": [
+                8421504,
+                0
+            ]
+        },
+        "adult": false,
+        "isCargo": false,
+        "extIds": [
+            218340,
+            22488,
+            17796,
+            21059,
+            21054,
+            21111,
+            21046,
+            68773,
+            78141,
+            139368,
+            147653,
+            147654,
+            181700
+        ],
+        "isElectronics": false,
+        "isHideColor": false,
+        "isVideo": false,
+        "isActivationKey": false,
+        "isInsurancePolicy": false,
+        "canFit": false,
+        "disableShowAdvantages": false
+    },
+    "selectedNomenclature": {
+        "isSoldOut": false,
+        "cod1S": 11119714,
+        "ordersCount": 1600,
+        "qualityRate": -1,
+        "artikul": "11119714",
+        "minPriceForDcn": {
+            "item1": 4990,
+            "item2": 4990,
+            "item3": 0,
+            "item4": false
+        },
+        "addToSellerEnable": false,
+        "addToBasketEnable": true,
+        "addToPonedEnable": true,
+        "addToWaitingListEnable": false,
+        "addToPreorderEnable": false,
+        "allSizesSoldOut": false,
+        "hasVideo": false,
+        "sizes": {
+            "35462098": {
+                "addToSellerEnable": false,
+                "addToBasketEnable": true,
+                "addToPonedEnable": true,
+                "addToWaitingListEnable": false,
+                "addToPreorderEnable": false,
+                "id": 1,
+                "sizeName": "0",
+                "dimensions": [],
+                "characteristicId": 35462098,
+                "priceWithSale": 4990,
+                "price": 4990,
+                "quantity": 1,
+                "isSoldOut": false,
+                "lowQuantity": false,
+                "sale": 0,
+                "creditEnabled": false,
+                "storeIds": [
+                    507,
+                    117986
+                ],
+                "hasPreorder": false,
+                "sellerEnabled": false
+            }
+        },
+        "kit": [],
+        "relatedGoodsIds": [],
+        "hasCreditSizes": false,
+        "showSizeType": false,
+        "rusName": "серый, черный",
+        "picsCount": 1,
+        "has3D": false,
+        "minOrderAmount": 1,
+        "hasSizesOnSeller": false,
+        "hasSizesOnPreorder": false,
+        "regionIds": [
+            1
+        ],
+        "enabledForRegion": true,
+        "isDigital": false,
+        "imageHelper": [
+            {
+                "preview": "//images.wbstatic.net/c516x688/new/11110000/11119714-1.jpg",
+                "zoom": "//images.wbstatic.net/big/new/11110000/11119714-1.jpg"
+            }
+        ],
+        "urlForReccomendations": "/recommendations/catalog?type=visuallysimilar&forproduct=11119714",
+        "isDataLoaded": true
+    },
+    "selectedSize": {
+        "addToSellerEnable": false,
+        "addToBasketEnable": true,
+        "addToPonedEnable": true,
+        "addToWaitingListEnable": false,
+        "addToPreorderEnable": false,
+        "id": 1,
+        "sizeName": "0",
+        "dimensions": [],
+        "characteristicId": 35462098,
+        "priceWithSale": 4990,
+        "price": 4990,
+        "quantity": 1,
+        "isSoldOut": false,
+        "lowQuantity": false,
+        "sale": 0,
+        "creditEnabled": false,
+        "storeIds": [
+            507,
+            117986
+        ],
+        "hasPreorder": false,
+        "sellerEnabled": false
+    },
+    "sizeTableLastChangedDate": "\/Date(-62135596800000-0000)\/",
+    "showSizeTable": false,
+    "haveSize": false,
+    "isDeleted": false,
+    "isNotAvailable": false,
+    "anySizeSoldOut": false,
+    "hasVideo": false,
+    "has3Dview": false,
+    "popupMode": false,
+    "catalogLink": "https://wildberries.ru/catalog/11119714/detail.aspx#c11119714",
+    "googleTagParams": "{\n  \"PageType\": \"product\",\n  \"Ptype\": [\n    \"Дрель-шуруповерт аккумуляторная ДА-12ЭР-02, 30Нм, 12В, 2х2.0Ач, з/у, кейс, набор оснастки 12шт\"\n  ],\n  \"Pbrand\": \"ИНТЕРСКОЛ\",\n  \"ProdID\": [\n    11119714\n  ],\n  \"Value\": [\n    \"4990\"\n  ],\n  \"Delivery\": \"Бесплатная доставка\",\n  \"Psize\": []\n}",
+    "canChooseCredit": false,
+    "showTones": false,
+    "metaTags": {
+        "11119714": {
+            "title": "Дрель-шуруповерт аккумуляторная ДА-12ЭР-02, 30Нм, 12В, 2х2.0Ач, з/у, кейс, набор оснастки 12шт ИНТЕРСКОЛ 11119714 купить %FORPRICE% в интернет-магазине Wildberries",
+            "description": "Дрель-шуруповерт аккумуляторная ДА-12ЭР-02, 30Нм, 12В, 2х2.0Ач, з/у, кейс, набор оснастки 12шт ИНТЕРСКОЛ 11119714 в интернет-магазине Wildberries. Бесплатная доставка и постоянные скидки!"
+        }
+    },
+    "nomenclatures": {
+        "11119714": {
+            "isSoldOut": false,
+            "cod1S": 11119714,
+            "ordersCount": 1600,
+            "qualityRate": -1,
+            "artikul": "11119714",
+            "minPriceForDcn": {
+                "item1": 4990,
+                "item2": 4990,
+                "item3": 0,
+                "item4": false
+            },
+            "addToSellerEnable": false,
+            "addToBasketEnable": true,
+            "addToPonedEnable": true,
+            "addToWaitingListEnable": false,
+            "addToPreorderEnable": false,
+            "allSizesSoldOut": false,
+            "hasVideo": false,
+            "sizes": {
+                "35462098": {
+                    "addToSellerEnable": false,
+                    "addToBasketEnable": true,
+                    "addToPonedEnable": true,
+                    "addToWaitingListEnable": false,
+                    "addToPreorderEnable": false,
+                    "id": 1,
+                    "sizeName": "0",
+                    "dimensions": [],
+                    "characteristicId": 35462098,
+                    "priceWithSale": 4990,
+                    "price": 4990,
+                    "quantity": 1,
+                    "isSoldOut": false,
+                    "lowQuantity": false,
+                    "sale": 0,
+                    "creditEnabled": false,
+                    "storeIds": [
+                        507,
+                        117986
+                    ],
+                    "hasPreorder": false,
+                    "sellerEnabled": false
+                }
+            },
+            "kit": [],
+            "relatedGoodsIds": [],
+            "hasCreditSizes": false,
+            "showSizeType": false,
+            "rusName": "серый, черный",
+            "picsCount": 1,
+            "has3D": false,
+            "minOrderAmount": 1,
+            "hasSizesOnSeller": false,
+            "hasSizesOnPreorder": false,
+            "regionIds": [
+                1
+            ],
+            "enabledForRegion": true,
+            "isDigital": false,
+            "imageHelper": [
+                {
+                    "preview": "//images.wbstatic.net/c516x688/new/11110000/11119714-1.jpg",
+                    "zoom": "//images.wbstatic.net/big/new/11110000/11119714-1.jpg"
+                }
+            ],
+            "urlForReccomendations": "/recommendations/catalog?type=visuallysimilar&forproduct=11119714",
+            "isDataLoaded": true
+        }
+    },
+    "properNomenclaturesOrder": [
+        11119714
+    ],
+    "showSimilar": true,
+    "farDeliveryEnable": false,
+    "enabledForRegion": true,
+    "questionsCount": 0,
+    "feedbacksCount": 111,
+    "openGraphDescription": "Шуруповерт ДА-12ЭР-02 (534.0.2.02). Технология Li-ion - низкий саморазряд, отсутствие эффекта памяти, высокая энергоемкость. Отличный баланс между емкостью аккумулятора и мощностью двигателя. Муфта ограничения усилия с 18+1. Двухскоростной редуктор с металлическими шестернями - высокая эффективность как сверления, так и закручивания крепежа. Контроллер с функцией отключения двигателя при перегрузке. Компактный, с укороченной базой, с автолоком шпинделя, оснащен бесключевым патроном на 10мм. LED-подсветка рабочей зоны. Компактный и надежный литой кейс. В комплекте биты 25 мм PZ1\\PZ2\\PH1\\PH2\\5\\6 (6 шт) и сверла: 1.5; 2; 3; 4; 5; 6 мм. (6 шт).",
+    "brandLogoUrl": "//images.wbstatic.net/brands/small/new/19084.jpg",
+    "brandUrl": "/brands/interskol",
+    "isDobroBrand": false,
+    "imageUploaderSettings": {
+        "maxItemsCount": 5,
+        "useCropper": true,
+        "minWidth": 337,
+        "minHeight": 450,
+        "messages": {
+            "wrongFileSize": "Размер файла не должен превышать {0} Mb.",
+            "wrongFileExtension": "Поддерживаются только следующие расширения файлов «{0}»",
+            "filesLimitReached": "Вы можете загрузить не более {0} изображений",
+            "wrongImageResolution": "Разрешение изображения должно быть не менее {0}px по ширине и {1}px по высоте"
+        },
+        "uploadLimit": 0,
+        "supportedExtensions": [
+            "jpg",
+            "gif",
+            "jpeg",
+            "png",
+            "bmp"
+        ]
+    },
+    "urlHelper": {
+        "toBasket": "/product/addtobasket"
+    },
+    "searchTags": {
+        "tagsQuery": "C этим товаром искали",
+        "drawType": 1,
+        "tagsViewModels": [
+            {
+                "href": "/catalog/0/search.aspx?search=%d1%88%d1%83%d1%80%d1%83%d0%bf%d0%be%d0%b2%d0%b5%d1%80%d1%82&targeturl=ST&xsearch=true",
+                "text": "шуруповерт",
+                "type": 1
+            },
+            {
+                "href": "/catalog/0/search.aspx?search=%d1%88%d1%83%d1%80%d1%83%d0%bf%d0%be%d0%b2%d0%b5%d1%80%d1%82+%d0%b0%d0%ba%d0%ba%d1%83%d0%bc%d1%83%d0%bb%d1%8f%d1%82%d0%be%d1%80%d0%bd%d1%8b%d0%b9&targeturl=ST&xsearch=true",
+                "text": "шуруповерт аккумуляторный",
+                "type": 1
+            },
+            {
+                "href": "/catalog/0/search.aspx?search=%d1%88%d1%83%d1%80%d1%83%d0%bf%d0%be%d0%b2%d0%b5%d1%80%d1%82+(%d1%81%d1%82%d1%80%d0%be%d0%b8%d1%82%d0%b5%d0%bb%d1%8c%d0%bd%d1%8b%d0%b5+%d0%b8%d0%bd%d1%81%d1%82%d1%80%d1%83%d0%bc%d0%b5%d0%bd%d1%82%d1%8b)&targeturl=ST&xsearch=true",
+                "text": "шуруповерт (строительные инструменты)",
+                "type": 1
+            },
+            {
+                "href": "/catalog/0/search.aspx?search=%d0%b4%d1%80%d0%b5%d0%bb%d1%8c-%d1%88%d1%83%d1%80%d1%83%d0%bf%d0%be%d0%b2%d0%b5%d1%80%d1%82&targeturl=ST&xsearch=true",
+                "text": "дрель-шуруповерт",
+                "type": 1
+            },
+            {
+                "href": "/catalog/0/search.aspx?search=%d1%88%d1%83%d1%80%d1%83%d0%bf%d0%be%d0%b2%d0%b5%d1%80%d1%82+%d0%b8%d0%bd%d1%82%d0%b5%d1%80%d1%81%d0%ba%d0%be%d0%bb&targeturl=ST&xsearch=true",
+                "text": "шуруповерт интерскол",
+                "type": 1
+            },
+            {
+                "href": "/catalog/0/search.aspx?search=%d0%b4%d0%b0-12%d1%8d%d1%80-02&targeturl=ST&xsearch=true",
+                "text": "да-12эр-02",
+                "type": 1
+            },
+            {
+                "href": "/catalog/0/search.aspx?search=%d0%b4%d0%b0-12%d1%8d%d1%80&targeturl=ST&xsearch=true",
+                "text": "да-12эр",
+                "type": 1
+            },
+            {
+                "href": "/catalog/0/search.aspx?search=%d0%bc%d0%b5%d1%82%d0%b0%d0%b1%d0%be&targeturl=ST&xsearch=true",
+                "text": "метабо",
+                "type": 1
+            },
+            {
+                "href": "/catalog/0/search.aspx?search=%d1%88%d1%83%d1%80%d1%83%d0%bf%d0%be%d0%b2%d1%91%d1%80%d1%82+dewalt&targeturl=ST&xsearch=true",
+                "text": "шуруповёрт dewalt",
+                "type": 1
+            },
+            {
+                "href": "/catalog/0/search.aspx?search=%d0%b0%d0%ba%d0%ba%d1%83%d0%bc%d1%83%d0%bb%d1%8f%d1%82%d0%be%d1%80&targeturl=ST&xsearch=true",
+                "text": "аккумулятор",
+                "type": 1
+            }
+        ]
+    },
+    "targetInfo": {
+        "targetUrl": "EX",
+        "targetCode": 0,
+        "sort": 0,
+        "targetUrlExtended": "EX||||"
+    }
+}

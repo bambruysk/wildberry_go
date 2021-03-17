@@ -3,7 +3,7 @@ package main
 import (
 	_ "encoding/json"
 	"errors"
-	"io/ioutil"
+	_ "io/ioutil"
 	"strings"
 
 	"fmt"
@@ -22,9 +22,9 @@ func main() {
 		log.Println("Error in request creation")
 	}
 
-	fil, err := io.ReadAll(page)
+	//fil, err := io.ReadAll(page)
 
-	err = ioutil.WriteFile("dump_page.html", fil, 0644)
+	//err = ioutil.WriteFile("dump_page.html", fil, 0644)
 
 	ssrJSON,err :=  ExtractSsrModel(page)
 	if err != nil {
@@ -70,6 +70,8 @@ func ExtractSsrModel ( body io.ReadCloser) (string, error) {
     }
 	bodyT := string(bodyB)
 
+	//fmt.Println(bodyT)
+
 	start := strings.Index(bodyT, "ssrModel")
 	if start < 0 {
 		return "" , errors.New("ssrModel not found")
@@ -78,7 +80,7 @@ func ExtractSsrModel ( body io.ReadCloser) (string, error) {
 	parentFound := false
 	for i,c := range text {
 		if c == '{' {
-			start = i
+			start += i
 			parentFound =  true
 			break
 		}
@@ -87,7 +89,7 @@ func ExtractSsrModel ( body io.ReadCloser) (string, error) {
 		return "", errors.New("no { after ssrModel tag")
 	}
 
-	parenthesisCount :=  1
+	parenthesisCount :=  0
 	text = bodyT[start:]
 	var end int
 	for i,c := range text {
@@ -96,11 +98,53 @@ func ExtractSsrModel ( body io.ReadCloser) (string, error) {
 		case '}': parenthesisCount--
 		}
 		if parenthesisCount == 0 {
-			end = i
+			end = start + i +1 
 			break
 		}
+	}
+	if end == 0 {
+
+		return "", fmt.Errorf("No '}' after ssrMpodel. Parentehsis =  %d", parenthesisCount)
 	}
 	log.Println(bodyT[start:end])
 	return bodyT[start:end], nil
 
+}
+
+type SuppliersInfo struct {
+	article string
+}
+
+type SupplierInfo struct {
+	cod1S string
+
+}
+
+
+type Product struct {
+	suppliersInfo SuppliersInfo
+
+}
+
+type Nomenclature struct {
+
+}
+
+type ProductCard struct {
+	link int 
+	star int 
+	brandName string 
+	brandId int 
+	brandDirectionId int 
+	brandDirectionPicsCount int  
+	description string
+	goodsName string
+	nomenclatures [] Nomenclature
+}
+
+func parseProductInfoFromJSON( info string) ( Product, error) {
+
+
+
+	return Product{}, nil
 }
