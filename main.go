@@ -1,26 +1,34 @@
-package wildberry_go
+package main
 
 import (
 	_ "github.com/anaskhan96/soup"
 	"net/http"
 	"log"
-	"io/ioutil"
+	"encoding/json"
 )
 
 func main() {
-	MakeRequest()
+	MakeRequest("https://httpbin.org/get")
 }
 
-func MakeRequest() {
-	resp, err := http.Get("https://httpbin.org/get")
+func MakeRequest( URL string) {
+
+	client := http.Client{}
+	request, err := http.NewRequest("GET", URL , nil)
+	if err != nil {
+		log.Println("Error in request creation")
+	}
+
+	request.Header.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.152 YaBrowser/21.2.2.101 Yowser/2.5 Safari/537.36")
+    request.Header.Add("Acccept-Language","ru")
+
+
+	resp, err := client.Do(request)
 	if err != nil {
 		log.Fatalln(err)
 	}
 
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	log.Println(string(body))
+	var result map[string]interface{}
+	json.NewDecoder(resp.Body).Decode(&result)
+	log.Println(result)
 }
