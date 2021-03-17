@@ -1,7 +1,7 @@
 package main
 
 import (
-	_ "encoding/json"
+	"encoding/json"
 	"errors"
 	_ "io/ioutil"
 	"strings"
@@ -26,7 +26,7 @@ func main() {
 
 	//err = ioutil.WriteFile("dump_page.html", fil, 0644)
 
-	ssrJSON,err :=  ExtractSsrModel(page)
+	ssrJSON, err := ExtractSsrModel(page)
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -35,7 +35,7 @@ func main() {
 
 }
 
-func MakeRequest(URL string) (io.ReadCloser, error)  {
+func MakeRequest(URL string) (io.ReadCloser, error) {
 
 	client := http.Client{}
 	request, err := http.NewRequest("GET", URL, nil)
@@ -53,35 +53,34 @@ func MakeRequest(URL string) (io.ReadCloser, error)  {
 		return nil, err
 	}
 
-	return  resp.Body, nil
+	return resp.Body, nil
 
 }
 
-func CreateWBUrl (article string) string {
-	return "https://wildberries.ru/catalog/" + article + "/detail.aspx" 
+func CreateWBUrl(article string) string {
+	return "https://wildberries.ru/catalog/" + article + "/detail.aspx"
 }
 
-
-func ExtractSsrModel ( body io.ReadCloser) (string, error) {
-	bodyB, err := io.ReadAll (body)
+func ExtractSsrModel(body io.ReadCloser) (string, error) {
+	bodyB, err := io.ReadAll(body)
 	defer body.Close()
 	if err != nil {
 		return "", err
-    }
+	}
 	bodyT := string(bodyB)
 
 	//fmt.Println(bodyT)
 
 	start := strings.Index(bodyT, "ssrModel")
 	if start < 0 {
-		return "" , errors.New("ssrModel not found")
+		return "", errors.New("ssrModel not found")
 	}
 	text := bodyT[start:]
 	parentFound := false
-	for i,c := range text {
+	for i, c := range text {
 		if c == '{' {
 			start += i
-			parentFound =  true
+			parentFound = true
 			break
 		}
 	}
@@ -89,16 +88,18 @@ func ExtractSsrModel ( body io.ReadCloser) (string, error) {
 		return "", errors.New("no { after ssrModel tag")
 	}
 
-	parenthesisCount :=  0
+	parenthesisCount := 0
 	text = bodyT[start:]
 	var end int
-	for i,c := range text {
+	for i, c := range text {
 		switch c {
-		case '{': parenthesisCount++
-		case '}': parenthesisCount--
+		case '{':
+			parenthesisCount++
+		case '}':
+			parenthesisCount--
 		}
 		if parenthesisCount == 0 {
-			end = start + i +1 
+			end = start + i + 1
 			break
 		}
 	}
@@ -111,40 +112,101 @@ func ExtractSsrModel ( body io.ReadCloser) (string, error) {
 
 }
 
-type SuppliersInfo struct {
-	article string
-}
+type SuppliersInfo map [string] SupplierInfo
+
 
 type SupplierInfo struct {
-	cod1S string
-
+	supplierName string
+	ogrn string
 }
-
 
 type Product struct {
 	suppliersInfo SuppliersInfo
-
 }
 
 type Nomenclature struct {
-
 }
 
 type ProductCard struct {
-	link int 
-	star int 
-	brandName string 
-	brandId int 
-	brandDirectionId int 
-	brandDirectionPicsCount int  
-	description string
-	goodsName string
-	nomenclatures [] Nomenclature
+	link                    int
+	star                    int
+	brandName               string
+	brandID                 int
+	brandDirectionID        int
+	brandDirectionPicsCount int
+	description             string
+	goodsName               string
+	nomenclatures           []Nomenclature
 }
 
-func parseProductInfoFromJSON( info string) ( Product, error) {
+func parseProductInfoFromJSON(info []byte) (Product, error) {
 
+	var f interface{}
+	err := json.Unmarshal(info, &f)
+	if err != nil {
+		return Product{}, errors.New("Unable parse product")
+	}
 
+	m := f.(map[string]interface{})
+
+	for k, v := range m {
+		switch vv := v.(type) {
+		case string:
+			fmt.Println(k, "is string", vv)
+		case float64:
+			fmt.Println(k, "is float64", vv)
+		case []interface{}:
+			switch k {
+				case "suppliersInfo": {
+					// for article, info := range vv {
+
+					// }  
+				}
+			case "productCard": {
+				card := ProductCard{}
+				card.parse(vv)
+			}
+			}
+			
+		default:
+			fmt.Println(k, "is of a type I don't know how to handle")
+		}
+	}
 
 	return Product{}, nil
+}
+
+
+func (s * SupplierInfo) parse( m map[string] interface{}) error {
+	for k,v :=  range m {
+		switch vv := v.(type) {
+		case string: {
+			switch k {
+			case "supplierName": 
+				s.supplierName = vv
+			case "ogrn":
+				s.ogrn = vv
+			}
+		}
+				
+		}
+	}
+	return nil
+}
+
+func (s * ProductCard) parse( m [] interface{}) error {
+	for k,v :=  range (m.(map[string] interface{})) {
+		switch vv := v.(type) {
+		case string: {
+			switch k {
+			case "supplierName": 
+				s.supplierName = vv
+			case "ogrn":
+				s.ogrn = vv
+			}
+		}
+				
+		}
+	}
+	return nil
 }
