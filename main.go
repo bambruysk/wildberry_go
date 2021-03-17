@@ -24,7 +24,7 @@ func main() {
 
 	fil, err := io.ReadAll(page)
 
-	err = ioutil.WriteFile("/tmp/dat1", fil, 0644)
+	err = ioutil.WriteFile("dump_page.html", fil, 0644)
 
 	ssrJSON,err :=  ExtractSsrModel(page)
 	if err != nil {
@@ -58,7 +58,7 @@ func MakeRequest(URL string) (io.ReadCloser, error)  {
 }
 
 func CreateWBUrl (article string) string {
-	return "https://wildberries.ru/" + article + "/details.aspx" 
+	return "https://wildberries.ru/catalog/" + article + "/detail.aspx" 
 }
 
 
