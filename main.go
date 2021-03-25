@@ -11,6 +11,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/anaskhan96/soup"
 	_ "github.com/anaskhan96/soup"
 )
 
@@ -56,6 +57,42 @@ func MakeRequest(URL string) (io.ReadCloser, error) {
 	return resp.Body, nil
 
 }
+
+func GetArticlesFromCatalogPage(URL string) ([]string, error) {
+
+	
+	
+
+	soup.Header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.152 YaBrowser/21.2.2.101 Yowser/2.5 Safari/537.36")
+	soup.Header("Acccept-Language", "ru")
+	resp, err := soup.Get(url)
+
+	if err != nil {
+		log.Println("Fail at make request")
+		return nil, err
+	} 
+
+	doc := soup.HTMLParse(resp)
+
+	//container = soup.select("div.dtList.i-dtList.j-card-item")
+	container = doc.FindAllStrict("div","dtList i-dtList j-card-item")
+	// url_block = block.select_one(
+    //         'a.ref_goods_n_p.j-open-full-product-card')
+
+    //     url = ("https://www.wildberries.ru" +
+    //            url_block.get('href')).replace("?targetUrl=GP", "")
+
+	res := make([]string, 20)
+
+	for block := range container {
+		url := block.FindStrict("a","ref_goods_n_p j-open-full-product-card").Text()
+		
+	} 
+
+
+	return  [] , nil
+}
+
 
 func CreateWBUrl(article string) string {
 	return "https://wildberries.ru/catalog/" + article + "/detail.aspx"
