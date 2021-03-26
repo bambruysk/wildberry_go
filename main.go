@@ -93,12 +93,22 @@ func GetArticlesFromCatalogPage(URL string) ([]string, error) {
 		
 
 
+	res := make([]string, 20)
+	
+	err = nil
 
 	// Find the review items
 	doc.Find("div").Find(".dtList-inner").Each(func(i int, s *goquery.Selection) {
 		// For each item found, get the band and title
-		ref := s.Find("href")
-		fmt.Print("Review",ref.Text(), ref)
+		linkTag := s.Find("a")
+		ref, _ := linkTag.Attr("href")
+		article, e := extractArticleFromURL(ref)
+		if e !=  nil {
+			err = e
+		}
+
+		res =  append(res,article )
+		log.Println ("Found ref", ref)
 	})
 
 
@@ -115,14 +125,19 @@ func GetArticlesFromCatalogPage(URL string) ([]string, error) {
     //     url = ("https://www.wildberries.ru" +
     //            url_block.get('href')).replace("?targetUrl=GP", "")
 
-	res := make([]string, 20)
 
 
 
-
-	return  res , nil
+	return  res , err
 }
-
+//  /catalog/19377339/detail.aspx?targetUrl=GP
+func extractArticleFromURL(URL string ) (string,  error) {
+	surl := strings.Split(URL, "/")
+	if len(surl) < 3 {
+		return "", errors.New("Error in url format")
+	}
+	return surl[2], nil
+}
 
 func CreateWBUrl(article string) string {
 	return "https://wildberries.ru/catalog/" + article + "/detail.aspx"
