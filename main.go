@@ -11,7 +11,6 @@ import (
 	"log"
 	"net/http"
 
-
 	"github.com/PuerkitoBio/goquery"
 )
 
@@ -54,21 +53,12 @@ func MakeRequest(URL string) (io.ReadCloser, error) {
 		return nil, err
 	}
 
-
 	return resp.Body, nil
 
 }
 
-
-
-
-
-
-
 func GetArticlesFromCatalogPage(URL string) ([]string, error) {
 
-	
-	
 	client := http.Client{}
 	request, err := http.NewRequest("GET", URL, nil)
 	if err != nil {
@@ -86,15 +76,13 @@ func GetArticlesFromCatalogPage(URL string) ([]string, error) {
 	}
 
 	// Load the HTML document
-		doc, err := goquery.NewDocumentFromResponse(resp)
-		if err != nil {
-			log.Fatal(err)
-		}
-		
-
+	doc, err := goquery.NewDocumentFromResponse(resp)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	res := make([]string, 20)
-	
+
 	err = nil
 
 	// Find the review items
@@ -103,35 +91,29 @@ func GetArticlesFromCatalogPage(URL string) ([]string, error) {
 		linkTag := s.Find("a")
 		ref, _ := linkTag.Attr("href")
 		article, e := extractArticleFromURL(ref)
-		if e !=  nil {
+		if e != nil {
 			err = e
 		}
 
-		res =  append(res,article )
-		log.Println ("Found ref", ref)
+		res = append(res, article)
+		log.Println("Found ref", ref)
 	})
 
-
-
-//	resp, err := soup.Get(url)
-
-
+	//	resp, err := soup.Get(url)
 
 	//container = soup.select("div.dtList.i-dtList.j-card-item")
-//	container := doc.FindAllStrict("div","dtList i-dtList j-card-item")
+	//	container := doc.FindAllStrict("div","dtList i-dtList j-card-item")
 	// url_block = block.select_one(
-    //         'a.ref_goods_n_p.j-open-full-product-card')
+	//         'a.ref_goods_n_p.j-open-full-product-card')
 
-    //     url = ("https://www.wildberries.ru" +
-    //            url_block.get('href')).replace("?targetUrl=GP", "")
+	//     url = ("https://www.wildberries.ru" +
+	//            url_block.get('href')).replace("?targetUrl=GP", "")
 
-
-
-
-	return  res , err
+	return res, err
 }
+
 //  /catalog/19377339/detail.aspx?targetUrl=GP
-func extractArticleFromURL(URL string ) (string,  error) {
+func extractArticleFromURL(URL string) (string, error) {
 	surl := strings.Split(URL, "/")
 	if len(surl) < 3 {
 		return "", errors.New("Error in url format")
@@ -194,19 +176,24 @@ func ExtractSsrModel(body io.ReadCloser) (string, error) {
 
 }
 
-type SuppliersInfo map [string] SupplierInfo
-
+type SuppliersInfo map[string]SupplierInfo
 
 type SupplierInfo struct {
 	supplierName string
-	ogrn string
+	ogrn         string
 }
 
 type Product struct {
-	suppliersInfo SuppliersInfo
+	SupplierName string
+	BrandName    string
+	Article      string
+	URL 		string
+	Price		int
+	OrderCount 	int
 }
 
 type Nomenclature struct {
+
 }
 
 type ProductCard struct {
@@ -216,12 +203,13 @@ type ProductCard struct {
 	brandID                 int
 	brandDirectionID        int
 	brandDirectionPicsCount int
+	supplierName            string
 	description             string
 	goodsName               string
 	nomenclatures           []Nomenclature
 }
 
-func parseProductInfoFromJSON(info []byte) (Product, error) {
+func parseProductInfoFromJSON(info []byte, article string) (Product, error) {
 
 	var f interface{}
 	err := json.Unmarshal(info, &f)
@@ -230,47 +218,63 @@ func parseProductInfoFromJSON(info []byte) (Product, error) {
 	}
 
 	m := f.(map[string]interface{})
-
+	product := Product{Article: article}
 	for k, v := range m {
-		switch vv := v.(type) {
-		case string:
-			fmt.Println(k, "is string", vv)
-		case float64:
-			fmt.Println(k, "is float64", vv)
-		case []interface{}:
-			switch k {
-				case "suppliersInfo": {
-					// for article, info := range vv {
-
-					// }  
+		switch k {
+		case "suppliersInfo":
+			{
+				fmt.Println(v)
+				suppliersInfo := v.(map[string]interface{})[article]
+				supplierInfo := suppliersInfo.(map[string]interface{})["supplierName"]
+				product.SupplierName = supplierInfo.(string)
+				log.Println("Supplier Name is ", product.SupplierName)
+			}
+		case "productCard":
+			{
+				// TODO: add checking
+				productCard := v.(map[string]interface{})
+				product.BrandName = productCard["brandName"].(string)
+				n, ok := productCard["nomenclatures"]
+				var  nomenclatures map[string]interface{}
+				if ok {
+					nomenclatures = n.(map[string]interface{})
+				} else {
+					log.Println("Nomenclatures not found")
 				}
-			case "productCard": {
-			//	card := ProductCard{}
-			//	card.parse(vv)
+				nomenclature := nomenclatures[article].(map[string]interface{})
+				product.OrderCount = int(nomenclature["ordersCount"].(float64))
+				sizes := nomenclature["sizes"].([]interface{})
+				size := sizes[0].(map[string]interface{})
+				product.Price = int(size["price"].(float64))
+
+				//product.OrderCount = nomenclatures["orderCount"]
+
+
 			}
-			}
-			
+
 		default:
-			fmt.Println(k, "is of a type I don't know how to handle")
+			{
+			}
 		}
 	}
 
-	return Product{}, nil
+
+	return product, nil
 }
 
-
-func (s * SupplierInfo) parse( m map[string] interface{}) error {
-	for k,v :=  range m {
+func (s *SupplierInfo) parse(m map[string]interface{}) error {
+	for k, v := range m {
 		switch vv := v.(type) {
-		case string: {
-			switch k {
-			case "supplierName": 
-				s.supplierName = vv
-			case "ogrn":
-				s.ogrn = vv
+		case string:
+			{
+				switch k {
+				case "supplierName":
+					s.supplierName = vv
+				case "ogrn":
+					s.ogrn = vv
+				}
 			}
-		}
-				
+
 		}
 	}
 	return nil
@@ -281,14 +285,35 @@ func (s * SupplierInfo) parse( m map[string] interface{}) error {
 // 		switch vv := v.(type) {
 // 		case string: {
 // 			switch k {
-// 			case "supplierName": 
+// 			case "supplierName":
 // 				s.supplierName = vv
 // 			case "ogrn":
 // 				s.ogrn = vv
 // 			}
 // 		}
-				
+
 // 		}
 // 	}
 // 	return nil
 // }
+
+func GetProductPage(article string) (io.ReadCloser, error) {
+	addr := CreateWBUrl(article)
+	return MakeRequest(addr)
+}
+
+func ParseProductPage(article string) (product Product) {
+	page, err := GetProductPage(article)
+	if err != nil {
+		log.Printf("Found err at %v \n", err)
+	}
+	ssr, err := ExtractSsrModel(page)
+
+	product, err = parseProductInfoFromJSON([]byte(ssr), article)
+
+	if err != nil {
+		log.Printf("Parse  err at %v \n", err)
+	}
+
+	return product
+}
