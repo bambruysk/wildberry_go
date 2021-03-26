@@ -11,8 +11,8 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/anaskhan96/soup"
-	_ "github.com/anaskhan96/soup"
+
+	"github.com/PuerkitoBio/goquery"
 )
 
 func main() {
@@ -54,28 +54,61 @@ func MakeRequest(URL string) (io.ReadCloser, error) {
 		return nil, err
 	}
 
+
 	return resp.Body, nil
 
 }
+
+
+
+
+
+
 
 func GetArticlesFromCatalogPage(URL string) ([]string, error) {
 
 	
 	
-
-	soup.Header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.152 YaBrowser/21.2.2.101 Yowser/2.5 Safari/537.36")
-	soup.Header("Acccept-Language", "ru")
-	resp, err := soup.Get(url)
-
+	client := http.Client{}
+	request, err := http.NewRequest("GET", URL, nil)
 	if err != nil {
-		log.Println("Fail at make request")
+		log.Println("Error in request creation")
 		return nil, err
-	} 
+	}
 
-	doc := soup.HTMLParse(resp)
+	request.Header.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.152 YaBrowser/21.2.2.101 Yowser/2.5 Safari/537.36")
+	request.Header.Add("Acccept-Language", "ru")
+
+	resp, err := client.Do(request)
+	if err != nil {
+		log.Fatalln(err)
+		return nil, err
+	}
+
+	// Load the HTML document
+		doc, err := goquery.NewDocumentFromResponse(resp)
+		if err != nil {
+			log.Fatal(err)
+		}
+		
+
+
+
+	// Find the review items
+	doc.Find("div").Find(".dtList-inner").Each(func(i int, s *goquery.Selection) {
+		// For each item found, get the band and title
+		ref := s.Find("href")
+		fmt.Print("Review",ref.Text(), ref)
+	})
+
+
+
+//	resp, err := soup.Get(url)
+
+
 
 	//container = soup.select("div.dtList.i-dtList.j-card-item")
-	container = doc.FindAllStrict("div","dtList i-dtList j-card-item")
+//	container := doc.FindAllStrict("div","dtList i-dtList j-card-item")
 	// url_block = block.select_one(
     //         'a.ref_goods_n_p.j-open-full-product-card')
 
@@ -84,13 +117,10 @@ func GetArticlesFromCatalogPage(URL string) ([]string, error) {
 
 	res := make([]string, 20)
 
-	for block := range container {
-		url := block.FindStrict("a","ref_goods_n_p j-open-full-product-card").Text()
-		
-	} 
 
 
-	return  [] , nil
+
+	return  res , nil
 }
 
 
@@ -200,8 +230,8 @@ func parseProductInfoFromJSON(info []byte) (Product, error) {
 					// }  
 				}
 			case "productCard": {
-				card := ProductCard{}
-				card.parse(vv)
+			//	card := ProductCard{}
+			//	card.parse(vv)
 			}
 			}
 			
@@ -231,19 +261,19 @@ func (s * SupplierInfo) parse( m map[string] interface{}) error {
 	return nil
 }
 
-func (s * ProductCard) parse( m [] interface{}) error {
-	for k,v :=  range (m.(map[string] interface{})) {
-		switch vv := v.(type) {
-		case string: {
-			switch k {
-			case "supplierName": 
-				s.supplierName = vv
-			case "ogrn":
-				s.ogrn = vv
-			}
-		}
+// func (s * ProductCard) parse( m [] interface{}) error {
+// 	for k,v :=  range (m.(map[string] interface{})) {
+// 		switch vv := v.(type) {
+// 		case string: {
+// 			switch k {
+// 			case "supplierName": 
+// 				s.supplierName = vv
+// 			case "ogrn":
+// 				s.ogrn = vv
+// 			}
+// 		}
 				
-		}
-	}
-	return nil
-}
+// 		}
+// 	}
+// 	return nil
+// }
