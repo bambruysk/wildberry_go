@@ -15,6 +15,8 @@ import (
 	"net/http"
 
 	"github.com/PuerkitoBio/goquery"
+	"gorm.io/driver/sqlite"
+  	"gorm.io/gorm"
 )
 
 func main() {
@@ -185,9 +187,10 @@ type SupplierInfo struct {
 }
 
 type Product struct {
+	gorm.Model 
 	SupplierName string
 	BrandName    string
-	Article      string
+	Article      string `gorm:"primaryKey"` 
 	URL          string
 	Price        int
 	OrderCount   int
@@ -343,8 +346,8 @@ func ParseCatalogPages(URL string) ([]Product, error) {
 		return nil, err
 	}
 
-	artChan := make(chan string)
-	productChan := make(chan Product)
+	artChan := make(chan string,8)
+	productChan := make(chan Product,8)
 	numsOfWorkers := 8
 
 	// for _, article :=  range aritcles {
@@ -356,7 +359,7 @@ func ParseCatalogPages(URL string) ([]Product, error) {
 	// }
 	var wg sync.WaitGroup
 	for i := 0; i < numsOfWorkers; i++ {
-		go func(c chan string, out chan Product, wg sync.WaitGroup ) {
+		go func(c chan string, out chan Product, wg * sync.WaitGroup ) {
 			wg.Add(1)
 			for article := range c {
 				product, err := ParseProductPage(article)
@@ -368,16 +371,24 @@ func ParseCatalogPages(URL string) ([]Product, error) {
 				time.Sleep(1*time.Millisecond)
 			}
 			wg.Done()
-		}(artChan, productChan, wg)
+		}(artChan, productChan, &wg)
 	}
 	productsCh := make(chan []Product)
 
 	// retreive results
 	go func(in chan Product, out chan []Product) {
 		var res []Product
+		db, err := gorm.Open(sqlite.Open("gorm.db"), &gorm.Config{})
+		if err != nil {
+			panic(err)
+		}
+		  // Migrate the schema
+		db.AutoMigrate(&Product{})
+		  
 		for p := range in {
+			db.Create(&p)
 			res = append(res, p)
-			fmt.Println(p)
+			//fmt.Println(p)
 		}
 
 		productsCh <- res
@@ -395,7 +406,30 @@ func ParseCatalogPages(URL string) ([]Product, error) {
 
 	products = <-productsCh
 
-	close(productsCh)
+	//close(productsCh)
 
 	return products, nil
+}
+
+func CheckDBConnect () (error) {
+
+	// github.com/mattn/go-sqlite3
+	db, err := gorm.Open(sqlite.Open("gorm.db"), &gorm.Config{})
+	if err != nil {
+		return err
+	}
+	fmt.Println(db)
+	return nil
+}
+
+
+func GetDBConnect () ( error) {
+
+	// github.com/mattn/go-sqlite3
+	db, err := gorm.Open(sqlite.Open("gorm.db"), &gorm.Config{})
+	if err != nil {
+		return err
+	}
+	fmt.Println(db)
+	return nil
 }

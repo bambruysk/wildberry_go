@@ -91,3 +91,10 @@ func TestParseCatalogPages( t * testing.T) {
 	fmt.Println("products found", products, len(products))
 	t.Logf("Found %d products", len(products))
 }
+
+func TestCheckDBConnect ( t * testing.T) {
+	err := CheckDBConnect()
+	if err != nil {
+      t.Errorf(" Error db_connect %v", err)
+	}
+}
