@@ -4,7 +4,10 @@ import (
 	"encoding/json"
 	"errors"
 	_ "io/ioutil"
+	"strconv"
 	"strings"
+	"sync"
+	"time"
 
 	"fmt"
 	"io"
@@ -81,7 +84,7 @@ func GetArticlesFromCatalogPage(URL string) ([]string, error) {
 		log.Fatal(err)
 	}
 
-	res := make([]string, 20)
+	res := make([]string, 0)
 
 	err = nil
 
@@ -96,7 +99,6 @@ func GetArticlesFromCatalogPage(URL string) ([]string, error) {
 		}
 
 		res = append(res, article)
-		log.Println("Found ref", ref)
 	})
 
 	//	resp, err := soup.Get(url)
@@ -171,7 +173,6 @@ func ExtractSsrModel(body io.ReadCloser) (string, error) {
 
 		return "", fmt.Errorf("No '}' after ssrMpodel. Parentehsis =  %d", parenthesisCount)
 	}
-	log.Println(bodyT[start:end])
 	return bodyT[start:end], nil
 
 }
@@ -187,13 +188,12 @@ type Product struct {
 	SupplierName string
 	BrandName    string
 	Article      string
-	URL 		string
-	Price		int
-	OrderCount 	int
+	URL          string
+	Price        int
+	OrderCount   int
 }
 
 type Nomenclature struct {
-
 }
 
 type ProductCard struct {
@@ -214,6 +214,7 @@ func parseProductInfoFromJSON(info []byte, article string) (Product, error) {
 	var f interface{}
 	err := json.Unmarshal(info, &f)
 	if err != nil {
+		fmt.Println("Trouble in parse", article, info)
 		return Product{}, errors.New("Unable parse product")
 	}
 
@@ -223,11 +224,9 @@ func parseProductInfoFromJSON(info []byte, article string) (Product, error) {
 		switch k {
 		case "suppliersInfo":
 			{
-				fmt.Println(v)
 				suppliersInfo := v.(map[string]interface{})[article]
 				supplierInfo := suppliersInfo.(map[string]interface{})["supplierName"]
 				product.SupplierName = supplierInfo.(string)
-				log.Println("Supplier Name is ", product.SupplierName)
 			}
 		case "productCard":
 			{
@@ -235,7 +234,7 @@ func parseProductInfoFromJSON(info []byte, article string) (Product, error) {
 				productCard := v.(map[string]interface{})
 				product.BrandName = productCard["brandName"].(string)
 				n, ok := productCard["nomenclatures"]
-				var  nomenclatures map[string]interface{}
+				var nomenclatures map[string]interface{}
 				if ok {
 					nomenclatures = n.(map[string]interface{})
 				} else {
@@ -247,9 +246,6 @@ func parseProductInfoFromJSON(info []byte, article string) (Product, error) {
 				size := sizes[0].(map[string]interface{})
 				product.Price = int(size["price"].(float64))
 
-				//product.OrderCount = nomenclatures["orderCount"]
-
-
 			}
 
 		default:
@@ -257,7 +253,6 @@ func parseProductInfoFromJSON(info []byte, article string) (Product, error) {
 			}
 		}
 	}
-
 
 	return product, nil
 }
@@ -302,18 +297,105 @@ func GetProductPage(article string) (io.ReadCloser, error) {
 	return MakeRequest(addr)
 }
 
-func ParseProductPage(article string) (product Product) {
+func ParseProductPage(article string) (Product, error) {
+	if len(article) == 0 {
+		return Product{}, errors.New("Article must be not empty")
+	}
 	page, err := GetProductPage(article)
 	if err != nil {
 		log.Printf("Found err at %v \n", err)
 	}
 	ssr, err := ExtractSsrModel(page)
 
-	product, err = parseProductInfoFromJSON([]byte(ssr), article)
+	product, err := parseProductInfoFromJSON([]byte(ssr), article)
 
 	if err != nil {
 		log.Printf("Parse  err at %v \n", err)
 	}
 
-	return product
+	return product, nil
+}
+
+func RetrieveAllArticlesFormCatalog(URL string) ([]string, error) {
+
+	var articles []string
+	//article_count := 0
+	for page := 1; ; page++ {
+		artcls, err := GetArticlesFromCatalogPage(URL + "?page=" + strconv.Itoa(page))
+		log.Println(artcls)
+		if err != nil {
+			return articles, fmt.Errorf("Article get error, %v ", err)
+		}
+		if len(artcls) == 0 {
+			return articles, nil
+		}
+		articles = append(articles, artcls...)
+	}
+
+}
+
+func ParseCatalogPages(URL string) ([]Product, error) {
+	/// retrinve all articles
+	var products []Product
+	aritcles, err := RetrieveAllArticlesFormCatalog(URL)
+
+	if err != nil {
+		return nil, err
+	}
+
+	artChan := make(chan string)
+	productChan := make(chan Product)
+	numsOfWorkers := 8
+
+	// for _, article :=  range aritcles {
+	// 	product, err :=  ParseProductPage(article)
+	// 	if err != nil {
+	// 		return products, err
+	// 	}
+	// 	products = append(products, product)
+	// }
+	var wg sync.WaitGroup
+	for i := 0; i < numsOfWorkers; i++ {
+		go func(c chan string, out chan Product, wg sync.WaitGroup ) {
+			wg.Add(1)
+			for article := range c {
+				product, err := ParseProductPage(article)
+				if err != nil {
+					// Check it
+					panic(err)
+				}
+				out <- product
+				time.Sleep(1*time.Millisecond)
+			}
+			wg.Done()
+		}(artChan, productChan, wg)
+	}
+	productsCh := make(chan []Product)
+
+	// retreive results
+	go func(in chan Product, out chan []Product) {
+		var res []Product
+		for p := range in {
+			res = append(res, p)
+			fmt.Println(p)
+		}
+
+		productsCh <- res
+	}(productChan, productsCh)
+
+	for _, a := range aritcles {
+		artChan <- a
+	}
+
+	close(artChan)
+
+	wg.Wait()
+
+	close(productChan)
+
+	products = <-productsCh
+
+	close(productsCh)
+
+	return products, nil
 }

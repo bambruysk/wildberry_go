@@ -61,8 +61,33 @@ func TestParsePage ( t* testing.T) {
 	}
 	products := make([]Product, 100)
 	for _,a := range articles {
-		product := ParseProductPage(a)
+		product, err := ParseProductPage(a)
+		if err !=  nil {
+			t.Errorf("Error in parse products %v", err)
+		}
 		products = append(products, product)
 	}
 	fmt.Println(products)
+}
+
+
+func TestRetrieveAllArticlesFormCatalog( t * testing.T) {
+	t.Log("Start testing")
+	articles, err := RetrieveAllArticlesFormCatalog(catalog)
+	if err != nil {
+      t.Errorf(" Erroor parse %v", err)
+	}
+	fmt.Println("Articles found", articles, len(articles))
+	t.Logf("Found %d articles", len(articles))
+}
+
+
+func TestParseCatalogPages( t * testing.T) {
+	t.Log("Start testing")
+	products, err := ParseCatalogPages(catalog)
+	if err != nil {
+      t.Errorf(" Erroor parse %v", err)
+	}
+	fmt.Println("products found", products, len(products))
+	t.Logf("Found %d products", len(products))
 }
