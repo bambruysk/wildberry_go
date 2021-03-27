@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	_ "io/ioutil"
+	"strconv"
 	"strings"
 
 	"fmt"
@@ -81,7 +82,7 @@ func GetArticlesFromCatalogPage(URL string) ([]string, error) {
 		log.Fatal(err)
 	}
 
-	res := make([]string, 20)
+	res := make([]string, 0)
 
 	err = nil
 
@@ -96,7 +97,6 @@ func GetArticlesFromCatalogPage(URL string) ([]string, error) {
 		}
 
 		res = append(res, article)
-		log.Println("Found ref", ref)
 	})
 
 	//	resp, err := soup.Get(url)
@@ -171,7 +171,6 @@ func ExtractSsrModel(body io.ReadCloser) (string, error) {
 
 		return "", fmt.Errorf("No '}' after ssrMpodel. Parentehsis =  %d", parenthesisCount)
 	}
-	log.Println(bodyT[start:end])
 	return bodyT[start:end], nil
 
 }
@@ -214,6 +213,7 @@ func parseProductInfoFromJSON(info []byte, article string) (Product, error) {
 	var f interface{}
 	err := json.Unmarshal(info, &f)
 	if err != nil {
+		fmt.Println("Trouble in parse",article, info)
 		return Product{}, errors.New("Unable parse product")
 	}
 
@@ -223,11 +223,9 @@ func parseProductInfoFromJSON(info []byte, article string) (Product, error) {
 		switch k {
 		case "suppliersInfo":
 			{
-				fmt.Println(v)
 				suppliersInfo := v.(map[string]interface{})[article]
 				supplierInfo := suppliersInfo.(map[string]interface{})["supplierName"]
 				product.SupplierName = supplierInfo.(string)
-				log.Println("Supplier Name is ", product.SupplierName)
 			}
 		case "productCard":
 			{
@@ -247,7 +245,6 @@ func parseProductInfoFromJSON(info []byte, article string) (Product, error) {
 				size := sizes[0].(map[string]interface{})
 				product.Price = int(size["price"].(float64))
 
-				//product.OrderCount = nomenclatures["orderCount"]
 
 
 			}
@@ -302,18 +299,62 @@ func GetProductPage(article string) (io.ReadCloser, error) {
 	return MakeRequest(addr)
 }
 
-func ParseProductPage(article string) (product Product) {
+func ParseProductPage(article string) (Product, error) {
+	if len(article) == 0 {
+		return Product{}, errors.New("Article must be not empty")
+	}
 	page, err := GetProductPage(article)
 	if err != nil {
 		log.Printf("Found err at %v \n", err)
 	}
 	ssr, err := ExtractSsrModel(page)
 
-	product, err = parseProductInfoFromJSON([]byte(ssr), article)
+	product, err := parseProductInfoFromJSON([]byte(ssr), article)
 
 	if err != nil {
 		log.Printf("Parse  err at %v \n", err)
 	}
 
-	return product
+	return product, nil
 }
+
+
+func RetrieveAllArticlesFormCatalog(URL string) ([] string, error) {
+
+
+	var articles [] string
+	//article_count := 0 
+	for page:=1;  ; page++ {
+		artcls, err :=  GetArticlesFromCatalogPage(URL+"?page="+ strconv.Itoa(page))
+		log.Println(artcls)
+		if err != nil {
+			return articles, fmt.Errorf("Article get error, %v ", err)
+		}
+		if (len(artcls) == 0) {
+			return articles, nil
+		}
+		articles = append(articles, artcls...)
+	}
+
+}
+
+func ParseCatalogPages(URL string) ([] Product , error) {
+	/// retrinve all articles
+	var products [] Product
+	aritcles, err := RetrieveAllArticlesFormCatalog(URL) 
+
+	if err != nil {
+		return nil, err
+	}
+
+	for _, article :=  range aritcles {
+		product, err :=  ParseProductPage(article)
+		if err != nil {
+			return products, err
+		}
+		products = append(products, product)
+	}
+
+	return products, nil
+}
+
