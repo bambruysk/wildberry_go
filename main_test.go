@@ -80,3 +80,14 @@ func TestRetrieveAllArticlesFormCatalog( t * testing.T) {
 	fmt.Println("Articles found", articles, len(articles))
 	t.Logf("Found %d articles", len(articles))
 }
+
+
+func TestParseCatalogPages( t * testing.T) {
+	t.Log("Start testing")
+	products, err := ParseCatalogPages(catalog)
+	if err != nil {
+      t.Errorf(" Erroor parse %v", err)
+	}
+	fmt.Println("products found", products, len(products))
+	t.Logf("Found %d products", len(products))
+}
